@@ -1,0 +1,18 @@
+<html>
+    <head>
+        <title>Crypot Trading Bot</title>
+    </head>
+
+    <body>
+        hello
+
+        <script>
+            var binanceSocket = new WebSocket('wss://stream.binance.com:9443/ws/ethusdt@kline_1s');
+            console.log(binanceSocket);
+
+            binanceSocket.onmessage = function (event){
+                console.log(event.data)
+            }
+        </script>
+    </body>
+</html>
