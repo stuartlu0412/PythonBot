@@ -11,8 +11,8 @@ SYMBOL = 'ETHUSDT'
 INTERVAL = '1s'
 SOCKET = f'wss://stream.binance.com:9443/ws/ethusdt@kline_{INTERVAL}'
 
-SIGNAL = 12
-FILTER = 20
+SIGNAL = 32
+FILTER = 49
 
 TRADE_QTY = 0.002
 
@@ -69,7 +69,7 @@ def on_message(ws, message):
             rsi_filter = talib.RSI(np_closes, FILTER)
             print(rsi_signal[-1])
 
-            if rsi_signal[-1] > 70:
+            if rsi_signal[-1] > 70 and rsi_filter[-1] > 70:
                 if position == 0:
                     print("BUY!!")
                     order_succeeded = order(SIDE_BUY, TRADE_QTY, SYMBOL)
@@ -77,7 +77,7 @@ def on_message(ws, message):
                         position = 1
 
 
-            if rsi_signal[-1] < 30:
+            if rsi_signal[-1] < 30 and rsi_filter[-1] < 30:
                 if position == 1:
                     print("SELL!!")
                     order_succeeded = order(SIDE_SELL, TRADE_QTY, SYMBOL)
